@@ -28,10 +28,14 @@ import java.util.Map;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.tooling.model.Strings;
+import org.eclipse.digitaltwin.basyx.databridge.core.configuration.entity.AuthorizedDataSourceConfiguration;
+import org.eclipse.digitaltwin.basyx.databridge.core.configuration.entity.DataSourceConfiguration;
 import org.eclipse.digitaltwin.basyx.databridge.core.configuration.route.core.IRouteCreator;
 import org.eclipse.digitaltwin.basyx.databridge.core.configuration.route.core.IRouteCreatorFactory;
 import org.eclipse.digitaltwin.basyx.databridge.core.configuration.route.core.RouteConfiguration;
 import org.eclipse.digitaltwin.basyx.databridge.core.configuration.route.core.RoutesConfiguration;
+
+import javax.sql.DataSource;
 
 /**
  * This factory is used to create the apache camel routes for the data bridge
@@ -52,9 +56,23 @@ public class DataBridgeRouteBuilder extends RouteBuilder {
 
 	@Override
 	public void configure() throws Exception {
+		Integer counter = 0;
 		for (RouteConfiguration routeConfig : routesConfiguration.getRoutes()) {
 			IRouteCreator routeCreator = routeCreatorFactoryMap.get(routeConfig.getRouteTrigger()).create(this, routesConfiguration);
+			String datasource = routeConfig.getDatasource();
+			DataSourceConfiguration config = routesConfiguration.getDatasources().get(datasource);
+			if(config instanceof AuthorizedDataSourceConfiguration){
 
+				counter++;
+				AuthorizedDataSourceConfiguration authorizedDataSourceConfiguration = (AuthorizedDataSourceConfiguration) config;
+
+				String clientId = authorizedDataSourceConfiguration.getClientId();
+				String clientSecret = authorizedDataSourceConfiguration.getClientSecret();
+				String tokenEndpoint = authorizedDataSourceConfiguration.getTokenEndpoint();
+				String serverUrl = authorizedDataSourceConfiguration.getServerUrl();
+				authorizedDataSourceConfiguration.setServerUrl(serverUrl +(serverUrl.contains("?")?"&":"?") + "oauth2ClientId=" + clientId + "&oauth2ClientSecret=" + clientSecret+"&oauth2TokenEndpoint=" + tokenEndpoint);
+				System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>   Server URL: " + authorizedDataSourceConfiguration.getServerUrl());
+			}
 			routeCreator.addRouteToRouteBuilder(routeConfig);
 		}
 	}

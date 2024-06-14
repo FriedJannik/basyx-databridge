@@ -24,6 +24,7 @@
  ******************************************************************************/
 package org.eclipse.digitaltwin.basyx.databridge.httppolling.configuration;
 
+import org.eclipse.digitaltwin.basyx.databridge.core.configuration.entity.AuthorizedDataSourceConfiguration;
 import org.eclipse.digitaltwin.basyx.databridge.core.configuration.entity.DataSourceConfiguration;
 
 /**
@@ -31,11 +32,12 @@ import org.eclipse.digitaltwin.basyx.databridge.core.configuration.entity.DataSo
  * @author n14s - Niklas Mertens
  *
  */
-public class HttpPollingConsumerConfiguration extends DataSourceConfiguration {
+public class HttpPollingConsumerConfiguration extends AuthorizedDataSourceConfiguration {
 	public HttpPollingConsumerConfiguration() {}
-	
-	public HttpPollingConsumerConfiguration(String uniqueId, String serverUrl, int serverPort) {
-		super(uniqueId, serverUrl, serverPort);
+
+
+	public HttpPollingConsumerConfiguration(String uniqueId, String serverUrl, int serverPort, String clientId, String clientSecret, String tokenEndpoint) {
+		super(uniqueId, serverUrl, serverPort,clientId,clientSecret,tokenEndpoint);
 	}
 
 	@Override
