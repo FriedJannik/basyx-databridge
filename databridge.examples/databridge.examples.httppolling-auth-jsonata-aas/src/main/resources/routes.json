@@ -1,0 +1,29 @@
+[
+  {
+    "datasource": "httpsource1",
+    "transformers": ["jsonataA"],
+    "datasinks": ["SubmodelSink1"],
+    "trigger": "timer",
+    "triggerData" : {
+    	"timerName": "timer1"
+    }
+  },
+  {
+    "datasource": "httpsource2",
+    "transformers": ["jsonataA"],
+    "datasinks": ["SubmodelSink2"],
+    "trigger": "timer",
+    "triggerData" : {
+      "timerName": "timer1"
+    }
+  },
+  {
+    "datasource": "httpsource3",
+    "transformers": ["jsonataA"],
+    "datasinks": ["SubmodelSink3"],
+    "trigger": "timer",
+    "triggerData" : {
+      "timerName": "timer1"
+    }
+  }
+]

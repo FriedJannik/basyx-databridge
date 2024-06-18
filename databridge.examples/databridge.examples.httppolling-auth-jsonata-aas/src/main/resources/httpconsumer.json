@@ -1,0 +1,20 @@
+[
+  {
+    "uniqueId": "httpsource1",
+    "serverUrl": "http://127.0.0.1:8081/shells",
+    "clientId": "workstation-1",
+    "clientSecret": "Rb3A3ewyIviTjuq929h0tyh7c7QTfSsN",
+    "tokenEndpoint": "http://localhost:9097/realms/BaSyx/protocol/openid-connect/token"
+  },
+  {
+    "uniqueId": "httpsource2",
+    "serverUrl": "http://127.0.0.1:8070/value2",
+    "clientId": "basyx-client-api",
+    "clientSecret": "asYElo1Ccl32h16eLaOJGLKA2wITm3j9",
+    "tokenEndpoint": "http://localhost:9096/realms/BaSyx2/protocol/openid-connect/token"
+  },
+  {
+    "uniqueId": "httpsource3",
+    "serverUrl": "http://127.0.0.1:8070/value2"
+  }
+]
